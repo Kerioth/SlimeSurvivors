@@ -1,0 +1,23 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class FollowCamera : MonoBehaviour
+{
+    [SerializeField] GameObject target = null;
+    [SerializeField] float interpolationFactor = 0.0f;
+    [SerializeField] float m_ZDistance = 10.0f;
+
+    void FixedUpdate()
+    {
+        Interpolate(Time.fixedDeltaTime);
+    }
+
+    void Interpolate(float a_DeltaTime)
+    {
+        if (target == null) return;
+        
+        Vector3 diff = target.transform.position + Vector3.back * m_ZDistance - transform.position;
+        transform.position += diff * m_InterpolationFactor * a_DeltaTime;
+    }
+}

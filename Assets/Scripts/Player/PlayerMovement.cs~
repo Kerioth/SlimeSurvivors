@@ -1,0 +1,51 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerMovement : MonoBehaviour
+{
+    public float speed = 4f;
+
+    float horizontal;
+    float vertical;
+    Animator anim;
+    Rigidbody2D rb2d;
+    FloatingJoystick joystick;
+
+    void Start()
+    {
+        anim = GetComponent<Animator>();
+        rb2d = GetComponent<Rigidbody2D>();
+    }
+    void Update()
+    {
+        horizontal = Input.GetAxisRaw("Horizontal");
+        vertical = Input.GetAxisRaw("Vertical");
+
+        horizontal += joystick.Horizontal;
+        vertical += joystick.Vertical;
+
+        FlipUpdate(horizontal);
+
+        anim.SetFloat("move", Mathf.Abs(horizontal) + Mathf.Abs(vertical));
+        anim.SetFloat("moveX", Mathf.Abs(horizontal));
+        anim.SetFloat("moveY", vertical);
+    }
+
+    void FlipUpdate(float horizontal)
+    {
+        Vector3 scale = transform.localScale;
+        if (horizontal < 0) scale.x = -1;
+        if (horizontal > 0) scale.x = 1;
+        transform.localScale = scale;
+    }
+
+    void FixedUpdate()
+    {
+        Vector2 moveDir = new Vector2(horizontal, vertical).normalized;
+        Vector2 position = rb2d.position;
+        position += moveDir * speed * Time.fixedDeltaTime;
+        rb2d.MovePosition(position);
+        //rb2d.velocity = moveDir * speed;
+    }
+}

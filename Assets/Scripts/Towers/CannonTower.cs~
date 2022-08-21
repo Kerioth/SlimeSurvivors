@@ -1,0 +1,19 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class CannonTower : MonoBehaviour
+{
+    private Vector3 shootPosition;
+
+    void Awake()
+    {
+        shootPosition = transform.Find("ShootFrom").position;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}

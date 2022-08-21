@@ -1,0 +1,40 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class BaseLogic : MonoBehaviour
+{
+    [SerializeField]
+    int health = 100;
+    [SerializeField]
+    Image HPbar;
+
+    public static BaseLogic Instance;
+
+    void Start()
+    {
+        Instance = this;
+    }
+
+    void Update()
+    {
+        HPbar.fillAmount = health / 100;
+        if (health <= 0) Death();
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("enemy")) Hit();
+    }
+
+    void Death()
+    {
+        Debug.Log("Game over");
+        Destroy(gameObject);
+    }
+
+    void ChangeHP(int change) => health += change;
+
+    public void Hit() => ChangeHP(-1);
+}

@@ -1,0 +1,35 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class SlimeSpawn : MonoBehaviour
+{
+    [SerializeField]
+    GameObject slime;
+    Transform[] points;
+
+    public float spawnTime = 1f;
+    float spawnTimer;
+
+    void Start()
+    {
+        points = transform.GetComponentsInChildren<Transform>();
+        spawnTimer = 0;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        spawnTimer += Time.deltaTime;
+        if(spawnTimer >= spawnTime)
+        {
+            Spawn();
+            spawnTimer = 0;
+        }
+    }
+
+    void Spawn()
+    {
+
+    }
+}

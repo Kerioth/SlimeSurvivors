@@ -1,0 +1,23 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BaseLogic : MonoBehaviour
+{
+    public int Health = 10;
+
+    public BaseLogic Instance;
+
+    void Start()
+    {
+        Instance = this;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+
+}
